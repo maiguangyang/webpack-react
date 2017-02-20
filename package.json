@@ -1,0 +1,26 @@
+{
+  "name": "webpack-react",
+  "version": "1.0.0",
+  "description": "React、Redux、React-Router、ES6、SCSS、Jade、Mocha",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maiguangyang/webpack-react.git"
+  },
+  "author": "guangyang.mai",
+  "license": "MIT",
+  "homepage": "https://github.com/maiguangyang/webpack-react",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.15.0",
+    "eslint-loader": "^1.6.1",
+    "fs": "0.0.1-security",
+    "html-webpack-plugin": "^2.28.0",
+    "path": "^0.12.7",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}

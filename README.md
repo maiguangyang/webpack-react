@@ -20,6 +20,9 @@ $ n use stable
 # 使用淘宝源 或 cnpm 源
 $ nrm use taobao
 
+# 安装 webpack
+$ npm install -g webpack
+
 # 安装 node_modules
 $ cd /path/to/project
 $ npm install
@@ -33,8 +36,6 @@ $ ./bin/nginx
 # 或者
 $ npm run nginx
 
-# 导入配置文件
-$ echo "include /path/to/project/vhosts/nginx.conf;" >> /path/to/nginx/nginx.conf
 
 # 重启nginx
 # Linux
@@ -45,9 +46,4 @@ $ sudo brew services restart nginx
 
 ## 代码编译与发布
 
-```
-
-# 发布代码
-#请输入项目名（项目文件夹名）：gulp task --name proname
-$ gulp --name proname
 ```
