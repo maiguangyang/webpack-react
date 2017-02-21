@@ -1,17 +1,58 @@
 {{#each modules}}
-  {{#compare 'domain' '===' type}}
+  {{#compare '' '!=' domain}}
     server {
       listen 80;
       server_name {{{domain domain}}};
-      root {{{domain dist}}};
+      root {{ ../buildDir }}/{{{domain path}}};
 
-      access_log {{ ../logsDir }}/access.log combined buffer=16k flush=5s;
-      error_log {{ ../logsDir }}/error.log error;
+      access_log {{ ../logsDir }}/access_{{{domain path}}}.log combined buffer=16k flush=5s;
+      error_log {{ ../logsDir }}/error_{{{domain path}}}.log error;
 
       error_page 404 500 502 503 504 @fallback;
 
       location / {
+        add_header Cache-Control "no-store, no-cache, private";
         index  index.html index.htm;
+      }
+
+      location ~* /(.*)$ {
+        add_header Cache-Control "no-store, no-cache, private";
+        try_files $uri /$1 @proxy_assets;
+      }
+      location @proxy_assets {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://127.0.0.1:{{ ../proxyPort }}/$1?$args;
+        proxy_intercept_errors on;
+        error_page 404 /error.html;
+      }
+
+      location @fallback {
+        try_files /error.html =500;
+      }
+    }
+  {{/compare}}
+
+  {{#compare '' '!=' cdn}}
+    server {
+      listen 80;
+      server_name {{{domain cdn}}};
+      root {{ ../assetsDir }}/{{{domain path}}};
+
+      access_log {{ ../logsDir }}/access_cdn_{{{domain path}}}.log combined buffer=16k flush=5s;
+      error_log {{ ../logsDir }}/error_cdn_{{{domain path}}}.log error;
+
+      error_page 404 500 502 503 504 @fallback;
+
+      location ~* /(.*)$ {
+        access_log off;
+        expires max;
+        add_header Cache-Control public;
+        try_files $uri /$1 =404;
       }
 
       location @fallback {

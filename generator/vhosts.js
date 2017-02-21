@@ -1,14 +1,18 @@
-import 'colors';
 
 import _                    from 'lodash';
 import fs                   from 'fs-extra';
 import path                 from 'path';
+import colors               from 'colors';
 import handlebars           from 'handlebars';
 import {
   DOMAIN_MODULES,
+  DLIENT_PORT,
+  DISTRICT_PATH,
   ROOT_PATH,
+  BUILD_PATH,
+  ASSETS_PATH,
   LOG_PATH
-}                           from '../conf/config'
+}                           from '../conf/config';
 
 handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
   let operators;
@@ -82,41 +86,14 @@ let fn       = handlebars.compile(template);
 let exists = [];
 let datas  = DOMAIN_MODULES
 .filter((row) => {
-  console.log(row);
   if (-1 !== _.indexOf(exists, row.domain)) {
     console.error(`Module ${row.domain} is already exists.`.red);
     return false;
   }
 
-  if (!_.isString(row.domain) && !_.isArray(row.domain)) {
+  if (!_.isString(row.domain)) {
     console.error('Module domain must be a string or array'.red);
     return false;
-  }
-
-  if ('proxy' === row.type) {
-    if (!(_.isArray(row.entries) && row.entries.length > 0)) {
-      console.error('Entries must be a array, and size not less than 1.'.red);
-      return false;
-    }
-
-    if (!(_.isString(row.proxy) && /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.exec(row.proxy))) {
-      console.warn('Proxy is requied, and must be proxy ip address. it would auto set proxy to 127.0.0.1'.yellow);
-      row.proxy = '127.0.0.1';
-    }
-
-    if (!_.isNumber(row.proxyPort)) {
-      console.warn('Proxy port is requied, and must be a number it would auto set proxy port to 3030'.yellow);
-      row.proxyPort = 3030;
-    }
-  }
-
-  if (_.isArray(row.domain)) {
-    _.forEach(row.domain, function (domain) {
-      console.log(`Server config ${domain} is ok.\n`.green);
-    });
-  }
-  else {
-    console.log(`Server config ${row.domain} is ok.\n`.green);
   }
 
   exists.push(row.domain);
@@ -132,10 +109,12 @@ let datas  = DOMAIN_MODULES
   return row;
 });
 
-
 fs.ensureDirSync(LOG_PATH);
 
 let source = fn({
+  proxyPort : DLIENT_PORT,
+  buildDir  : BUILD_PATH,
+  assetsDir : ASSETS_PATH,
   logsDir   : LOG_PATH,
   modules   : datas,
 });

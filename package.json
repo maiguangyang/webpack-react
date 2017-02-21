@@ -6,6 +6,7 @@
   "description": "React、Redux、React-Router、ES6、SCSS、Jade、Mocha",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --hot --inline --progress --colors",
     "nginx": "babel-node ./generator/vhosts"
   },
   "repository": {
