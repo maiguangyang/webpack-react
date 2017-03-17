@@ -29,12 +29,12 @@ moduleList.forEach(function (elem) {
   HtmlWebpackPluginList.push(new HtmlwebpackPlugin({
     template      : `${APP_PATH}/${elem}/${outputFileName}.html`,
     inject        : 'body',
-    filename      : `${outputFileName}.html`,
+    filename      : `${elem}.html`,
     excludeChunks : array.without(moduleList, elem),
-    chunks        : [`${outputFileName}`],
+    chunks        : [`${elem}`],
   }));
 
-  moduleEntry[`${outputFileName}`] = [
+  moduleEntry[`${elem}`] = [
     `${APP_PATH}/${elem}/index.js`,
   ];
 });
@@ -44,13 +44,14 @@ moduleList.forEach(function (elem) {
  * webpack
  */
 export default {
+  devtool: 'eval-source-map',
   entry : moduleEntry,
   output: {
     path        : BUILD_PATH,
-    filename    : '[name].[hash].js',
+    filename    : '[name].[hash:8].js',
   },
-
   module: {
+
     loaders: [
       {
         test    : /\.scss$/,
@@ -60,10 +61,13 @@ export default {
       {
         test    : /\.(png|jpg)$/,
         loaders : 'url-loader?limit=10000'
+      },
+      {
+        test    : /\.(js|jsx)$/,
+        loaders : ['babel-loader']
       }
-    ]
+    ],
   },
-
   devServer: {
     port: DLIENT_PORT,
   },

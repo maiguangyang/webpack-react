@@ -6,6 +6,11 @@ export const DOMAIN_MODULES  = [
     domain  : 'www.myreact.com',
     cdn     : 'cdn.myreact.com',
     path    : 'www',
+  },
+  {
+    domain  : 'admin.myreact.com',
+    cdn     : 'cdn1.myreact.com',
+    path    : 'admin',
   }
 ];
 
