@@ -29,12 +29,12 @@ moduleList.forEach(function (elem) {
   HtmlWebpackPluginList.push(new HtmlwebpackPlugin({
     template      : `${APP_PATH}/${elem}/${outputFileName}.html`,
     inject        : 'body',
-    filename      : `${elem}/${outputFileName}.html`,
+    filename      : `${outputFileName}.html`,
     excludeChunks : array.without(moduleList, elem),
     chunks        : [`${outputFileName}`],
   }));
 
-  moduleEntry[`${elem}/${outputFileName}`] = [
+  moduleEntry[`${outputFileName}`] = [
     `${APP_PATH}/${elem}/index.js`,
   ];
 });
@@ -47,7 +47,7 @@ export default {
   entry : moduleEntry,
   output: {
     path        : BUILD_PATH,
-    filename    : '[name].[chunkhash].js',
+    filename    : '[name].[hash].js',
   },
 
   module: {
