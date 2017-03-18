@@ -48,7 +48,8 @@ export const ModuleLoaders = {
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: ['css-loader', 'sass-loader?outputStyle=expanded']
-      })
+      }),
+      include  : APP_PATH
     },
     {
       test    : /\.(png|jpg)$/,
@@ -58,7 +59,13 @@ export const ModuleLoaders = {
       test    : /\.(js|jsx)$/,
       use     : ['HappyPack/loader?id=js'],
       exclude : /node_modules/,
+      include  : APP_PATH
     },
+    {
+      test     : /\.jade$/,
+      loaders  : ['jade-react-loader'],
+      include  : APP_PATH
+    }
   ],
 }
 

@@ -11,5 +11,9 @@ body {
 
   .test {
     position: relative;
+
+    > .name {
+      color: #f00;
+    }
   }
 }
