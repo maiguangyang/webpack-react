@@ -1,11 +1,19 @@
+import './index.scss'
+
 import React, { Component } from 'react'
 import ReactDOM             from 'react-dom'
+import Template             from './index.html';
+
+
 
 
 class TestApp extends Component {
   render() {
+    console.log(Template);
+
+    let Template = 'test';
     return (
-      <div>TestApp</div>
+      <div> { Template } </div>
     )
   }
 }

@@ -18,6 +18,8 @@ export const SRC_DIR        = 'src';
 export const APP_DIR        = 'app';
 export const LOG_DIR        = 'logs';
 export const TEST_DIR       = 'test';
+export const Dll_DIR        = 'dll_src';
+export const HAPPYPACK_DIR  = '.happpack';
 
 export const DEV_DIR        = '.dist';
 export const DIST_DIR       = 'dist';
@@ -28,6 +30,9 @@ export const BUILD_DIR      = 'build';
 export const ROOT_PATH      = path.join(__dirname, '../').replace(/\\/gi, '/');
 export const APP_PATH       = path.resolve(ROOT_PATH, SRC_DIR, APP_DIR).replace(/\\/gi, '/');
 export const BUILD_PATH     = path.join(ROOT_PATH, BUILD_DIR).replace(/\\/gi, '/');
+
+export const DLL_PATH       = path.join(ROOT_PATH, Dll_DIR).replace(/\\/gi, '/');
+export const HAPPYPACK_PATH = path.join(ROOT_PATH, HAPPYPACK_DIR).replace(/\\/gi, '/');
 
 export const DISTRICT_PATH  = path.join(ROOT_PATH, process.env.DEVELOP ? DEV_DIR : DIST_DIR).replace(/\\/gi, '/');
 export const ASSETS_PATH    = path.join(DISTRICT_PATH, ASSETS_DIR).replace(/\\/gi, '/');
