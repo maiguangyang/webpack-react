@@ -3,7 +3,7 @@
     server {
       listen 80;
       server_name {{{domain domain}}};
-      root {{ ../buildDir }}/{{{domain path}}};
+      root {{ ../buildDir }};
 
       access_log {{ ../logsDir }}/access_{{{domain path}}}.log combined buffer=16k flush=5s;
       error_log {{ ../logsDir }}/error_{{{domain path}}}.log error;
@@ -41,7 +41,7 @@
     server {
       listen 80;
       server_name {{{domain cdn}}};
-      root {{ ../assetsDir }}/{{{domain path}}};
+      root {{ ../assetsDir }};
 
       access_log {{ ../logsDir }}/access_cdn_{{{domain path}}}.log combined buffer=16k flush=5s;
       error_log {{ ../logsDir }}/error_cdn_{{{domain path}}}.log error;

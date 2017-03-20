@@ -9,15 +9,12 @@ import ExtractTextPlugin  from 'extract-text-webpack-plugin';
 
 import {
   ROOT_PATH,
-  SRC_DIR,
-  DIST_DIR,
   APP_PATH,
   BUILD_PATH,
   DLL_PATH,
   DLIENT_PORT,
-  ASSETS_PATH,
-  DOMAIN_MODULES,
-  HAPPYPACK_PATH,
+  ASSETS_DIR,
+  DISTRICT_PATH,
 }                         from './config';
 
 import {ModuleEntry, ModuleLoaders, HtmlWebpackPluginList} from './webpack.head.config';
@@ -31,6 +28,7 @@ const pool = HappyPack.ThreadPool({ size: os.cpus().length })
 HtmlWebpackPluginList.push(
   new CleanWebpackPlugin([
     BUILD_PATH,
+    DISTRICT_PATH,
     DLL_PATH,
   ],
   {
@@ -41,7 +39,7 @@ HtmlWebpackPluginList.push(
 )
 
 HtmlWebpackPluginList.push(
-  new ExtractTextPlugin('[name].[contenthash:8].css')
+  new ExtractTextPlugin(`${ASSETS_DIR}/styles/[name].[contenthash:8].css`)
 )
 
 /**
@@ -75,7 +73,7 @@ export default {
   devtool: 'eval-source-map',
   entry : ModuleEntry,
   output: {
-    path        : BUILD_PATH,
+    path        : DISTRICT_PATH,
     filename    : '[name].[hash:8].js',
   },
   module: ModuleLoaders,

@@ -113,9 +113,9 @@ fs.ensureDirSync(LOG_PATH);
 
 let source = fn({
   proxyPort : DLIENT_PORT,
-  buildDir  : BUILD_PATH,
-  assetsDir : ASSETS_PATH,
-  logsDir   : LOG_PATH,
+  buildDir  : DISTRICT_PATH.replace(/\\/gi, '/'),
+  assetsDir : ASSETS_PATH.replace(/\\/gi, '/'),
+  logsDir   : LOG_PATH.replace(/\\/gi, '/'),
   modules   : datas,
 });
 
