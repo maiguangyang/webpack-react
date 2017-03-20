@@ -20,6 +20,7 @@ export const LOG_DIR        = 'logs';
 export const TEST_DIR       = 'test';
 export const Dll_DIR        = 'dll_src';
 export const HAPPYPACK_DIR  = '.happpack';
+export const COMMON_DIR     = 'common';
 
 export const DEV_DIR        = '.dist';
 export const DIST_DIR       = 'dist';
@@ -37,4 +38,7 @@ export const HAPPYPACK_PATH = path.join(ROOT_PATH, HAPPYPACK_DIR);
 export const DISTRICT_PATH  = path.join(ROOT_PATH, process.env.DEVELOP ? DEV_DIR : DIST_DIR);
 export const ASSETS_PATH    = path.join(DISTRICT_PATH, ASSETS_DIR);
 export const LOG_PATH       = path.join(ROOT_PATH, LOG_DIR);
+
+export const ROOT_COMMON    = path.join(ROOT_PATH, COMMON_DIR);
+export const APP_COMMON     = path.join(ROOT_PATH, APP_PATH);
 
