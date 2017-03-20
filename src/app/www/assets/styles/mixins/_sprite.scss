@@ -1,0 +1,71 @@
+
+    $logo-name         : 'sp-logo';
+    $logo-x            : 0px;
+    $logo-y            : 0px;
+    $logo-offset-x     : 0px;
+    $logo-offset-y     : 0px;
+    $logo-width        : 160px;
+    $logo-height       : 160px;
+    $logo-total-width  : 160px;
+    $logo-total-height : 160px;
+    $logo-image        : '~sprite.png';
+    $logo              : (0px, 0px, 0px, 0px, 160px, 160px, 160px, 160px, '~sprite.png', 'logo', );
+
+  $spritesheet-width   : 160px;
+  $spritesheet-height  : 160px;
+  $spritesheet-image   : '~sprite.png';
+  $spritesheet-sprites : ($logo, );
+  $spritesheet         : (160px, 160px, '~sprite.png', $spritesheet-sprites, );
+
+
+    @mixin sprite-position($sprite) {
+      $sprite-offset-x: nth($sprite, 3);
+      $sprite-offset-y: nth($sprite, 4);
+      background-position: $sprite-offset-x $sprite-offset-y;
+    }
+
+    @mixin sprite-image($sprite) {
+      $sprite-image: nth($sprite, 9);
+      background-image: url(#{$sprite-image});
+    }
+
+    @mixin sprite($sprite) {
+      $sprite-offset-x     : nth($sprite, 3);
+      $sprite-offset-y     : nth($sprite, 4);
+      $sprite-width        : nth($sprite, 5);
+      $sprite-height       : nth($sprite, 6);
+      $sprite-total-width  : nth($sprite, 7);
+      $sprite-total-height : nth($sprite, 8);
+      $sprite-image        : nth($sprite, 9);
+
+      $sprite-rw           : $sprite-total-width / $sprite-width;
+      $sprite-rh           : $sprite-total-height / $sprite-height;
+      $sprite-rx           : abs($sprite-offset-x / ($sprite-total-width - $sprite-width));
+      $sprite-ry           : abs($sprite-offset-y / ($sprite-total-height - $sprite-height));
+
+      background-image: url(#{$sprite-image});
+      background-repeat: no-repeat;
+      background-size: percentage($sprite-rw) percentage($sprite-rh);
+      background-position: percentage($sprite-rx) percentage($sprite-ry);
+    }
+
+
+    @mixin sprites($sprites) {
+      @each $sprite in $sprites {
+        $sprite-name: nth($sprite, 10);
+
+        .sp.sp-#{$sprite-name} {
+          display: inline-block;
+          width: rem(nth($sprite, 5) / 2);
+          height: rem(nth($sprite, 6) / 2);
+
+          &:before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            @include sprite($sprite);
+          }
+        }
+      }
+    }

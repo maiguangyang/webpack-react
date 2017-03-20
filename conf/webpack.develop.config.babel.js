@@ -99,6 +99,11 @@ export default {
     path        : DISTRICT_PATH,
     filename    : '[name].[hash:8].js',
   },
+
+  resolve: {
+    modules: ['node_modules', 'spritesmith-generated']
+  },
+
   module: ModuleLoaders,
 
   devServer: {
