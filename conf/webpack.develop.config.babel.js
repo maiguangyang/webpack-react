@@ -65,6 +65,32 @@ happyPackList.push(
   })
 )
 
+/**
+ * 执行DllReferencePlugin，加快编译速度
+ */
+let DllPluginList = [];
+if (process.env.DEVELOP) {
+  DllPluginList.push(
+    new webpack.DllPlugin({
+      path: path.resolve(DLL_PATH, '[name]_manifest.json').replace(/\\/gi, '/'),
+      name: '[name]_library'
+    })
+  )
+
+  if (fs.existsSync(DLL_PATH)) {
+    let files = fs.readdirSync(DLL_PATH);
+    if (!_.isEmpty(files)) {
+      files.forEach(function (path) {
+        DllPluginList.push(
+          new webpack.DllReferencePlugin({
+            manifest: require(`${DLL_PATH}/${path}`)
+          })
+        )
+      })
+    }
+  }
+}
+
 
 /**
  * webpack
@@ -81,5 +107,5 @@ export default {
     port: DLIENT_PORT,
   },
 
-  plugins: [].concat(happyPackList, HtmlWebpackPluginList)
+  plugins: [].concat(DllPluginList, happyPackList, HtmlWebpackPluginList)
 };
