@@ -8,17 +8,17 @@ body {
 }
 
 #app {
+  position: relative;
   margin: 0 auto;
-  width: 500px;
-  height: 500px;
-  background: #fff;
-
 
   .test {
     position: relative;
 
     > .name {
+      width: 50px;
+      height: 50px;
       color: #f00;
+      background: url('../../assets/images/logo.png') center center no-repeat;
     }
   }
 

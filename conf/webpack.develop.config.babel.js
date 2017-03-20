@@ -101,7 +101,16 @@ export default {
   },
 
   resolve: {
-    modules: ['node_modules', 'spritesmith-generated']
+    modules: [
+      'node_modules',
+      'spritesmith-generated',
+    ]
+  },
+
+  resolveLoader: {
+    modules: [
+      'node_modules',
+    ],
   },
 
   module: ModuleLoaders,

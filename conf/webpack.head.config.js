@@ -100,6 +100,7 @@ moduleList.forEach(function (elem) {
       })
     )
   }
+
   /**
    * 项目入口文件index.js
    */
@@ -107,7 +108,6 @@ moduleList.forEach(function (elem) {
     `${APP_PATH}/${elem}/index.js`,
   ];
 });
-
 
 export const ModuleLoaders = {
   rules: [
@@ -121,7 +121,7 @@ export const ModuleLoaders = {
     },
     {
       test      : /\.(png|jpg)$/,
-      use       : 'url-loader?limit=10000'
+      use       : 'url-loader?limit=10000&name=[hash:8].[name].[ext]'
     },
     {
       test      : /\.(js|jsx)$/,
