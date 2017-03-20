@@ -8,6 +8,7 @@ import {
   ROOT_PATH,
   APP_PATH,
   BUILD_PATH,
+  ASSETS_DIR,
   DOMAIN_MODULES
 }                         from './config';
 
@@ -30,12 +31,16 @@ moduleList.forEach(function (elem) {
   HtmlPluginList.push(new HtmlwebpackPlugin({
     template      : `${APP_PATH}/${elem}/${outputFileName}.html`,
     inject        : 'body',
-    filename      : `${elem}.html`,
+    filename      : `${elem}/${outputFileName}.html`,
     excludeChunks : array.without(moduleList, elem),
-    chunks        : [`${elem}`],
+    chunks        : [`${elem}/assets/${outputFileName}`],
   }));
 
-  moduleEntryList[`${elem}`] = [
+  HtmlPluginList.push(
+    new ExtractTextPlugin(`[name].[contenthash:8].css`)
+  )
+
+  moduleEntryList[`${elem}/assets/${outputFileName}`] = [
     `${APP_PATH}/${elem}/index.js`,
   ];
 });

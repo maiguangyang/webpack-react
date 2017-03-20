@@ -38,9 +38,6 @@ HtmlWebpackPluginList.push(
   })
 )
 
-HtmlWebpackPluginList.push(
-  new ExtractTextPlugin(`${ASSETS_DIR}/styles/[name].[contenthash:8].css`)
-)
 
 /**
  * HappyPackPluginS
@@ -104,6 +101,7 @@ export default {
   },
   module: ModuleLoaders,
   devServer: {
+    contentBase: DISTRICT_PATH,
     port: DLIENT_PORT,
   },
 
