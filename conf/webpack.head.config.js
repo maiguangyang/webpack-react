@@ -3,6 +3,7 @@ import HappyPack          from 'happypack';
 import HtmlwebpackPlugin  from 'html-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin  from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin  from 'copy-webpack-plugin';
 
 import {
   ROOT_PATH,
@@ -36,9 +37,28 @@ moduleList.forEach(function (elem) {
     chunks        : [`${elem}/assets/${outputFileName}`],
   }));
 
+  /**
+   * 抽取Css
+   */
   HtmlPluginList.push(
     new ExtractTextPlugin(`[name].[contenthash:8].css`)
   )
+
+  /**
+   * 复制文件
+   */
+  HtmlPluginList.push(
+    new CopyWebpackPlugin([
+      {
+        from    : `${APP_PATH}/${elem}/assets/images/**`,
+        to      : `${elem}/assets/images/`,
+        flatten : true,
+      }
+    ], {
+      copyUnmodified: true,
+    })
+  )
+
 
   moduleEntryList[`${elem}/assets/${outputFileName}`] = [
     `${APP_PATH}/${elem}/index.js`,
@@ -47,18 +67,18 @@ moduleList.forEach(function (elem) {
 
 
 export const ModuleLoaders = {
-  loaders: [
+  rules: [
     {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract({
+      test: /\.(css|scss)$/,
+      use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
-        use: ['css-loader', 'sass-loader?outputStyle=expanded']
+        loader: ['css-loader', 'postcss-loader', 'sass-loader?outputStyle=expanded']
       }),
       include  : APP_PATH
     },
     {
       test    : /\.(png|jpg)$/,
-      loaders : 'url-loader?limit=10000'
+      use : 'url-loader?limit=10000'
     },
     {
       test    : /\.(js|jsx)$/,
@@ -68,7 +88,7 @@ export const ModuleLoaders = {
     },
     {
       test     : /\.jade$/,
-      loaders  : ['jade-react-loader'],
+      use  : ['jade-react-loader'],
       include  : APP_PATH
     }
   ],

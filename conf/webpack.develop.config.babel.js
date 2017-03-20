@@ -100,10 +100,12 @@ export default {
     filename    : '[name].[hash:8].js',
   },
   module: ModuleLoaders,
+
   devServer: {
     contentBase: DISTRICT_PATH,
     port: DLIENT_PORT,
   },
 
-  plugins: [].concat(DllPluginList, happyPackList, HtmlWebpackPluginList)
+  plugins: [
+  ].concat(DllPluginList, happyPackList, HtmlWebpackPluginList)
 };
