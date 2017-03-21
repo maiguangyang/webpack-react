@@ -1,5 +1,4 @@
-// @import "../../assets/styles/public";
-// @import '../../assets/styles/mixins/sprite';
+@import "../../assets/styles/public";
 
 body {
   width: 100%;
@@ -27,9 +26,3 @@ body {
   }
 
 }
-
-.sp {
-  display: inline-block;
-}
-
-// @include sprite($spritesheet-sprites);

@@ -14,7 +14,8 @@ import {
   APP_PATH,
   BUILD_PATH,
   ASSETS_DIR,
-  DOMAIN_MODULES
+  DOMAIN_MODULES,
+  DISTRICT_PATH,
 }                         from './config';
 
 let moduleEntryList       = {};
@@ -80,7 +81,7 @@ moduleList.forEach(function (elem) {
           glob: '**/*.{png,gif,jpg}',
         },
         target: {
-          image: `${APP_PATH}/${elem}/assets/images/sprite/sprite.png`,
+          image: `${DISTRICT_PATH}/${elem}/assets/images/sprite.[hash:8].png`,
           css  : [
             [
               `${APP_PATH}/${elem}/assets/styles/mixins/_sprite.scss`,
@@ -91,7 +92,7 @@ moduleList.forEach(function (elem) {
           ]
         },
         apiOptions: {
-          cssImageRef: '~sprite.png'
+          cssImageRef: `/${elem}/assets/images/sprite.[hash:8].png`
         },
         spritesmithOptions: {
           functions : true,
