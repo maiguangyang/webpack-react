@@ -1,4 +1,5 @@
 import fs                     from 'fs-extra';
+import path                   from 'path';
 import array                  from 'lodash/array';
 import HappyPack              from 'happypack';
 import HtmlwebpackPlugin      from 'html-webpack-plugin';
@@ -19,8 +20,9 @@ import {
 }                         from './config';
 
 let moduleEntryList       = {};
-let HtmlPluginList = [];
+let HtmlPluginList        = [];
 let moduleList            = [];
+let AssetsPathList        = [];
 let outputFileName        = 'index';
 
 DOMAIN_MODULES.forEach((elem) => {
@@ -103,6 +105,13 @@ moduleList.forEach(function (elem) {
   }
 
   /**
+   * 项目静态文件目录
+   */
+  AssetsPathList.push(
+    path.resolve(__dirname, APP_PATH, elem)
+  )
+
+  /**
    * 项目入口文件index.js
    */
   moduleEntryList[`${elem}/assets/${outputFileName}`] = [
@@ -141,3 +150,5 @@ export const ModuleLoaders = {
 
 export const ModuleEntry            = moduleEntryList || [];
 export const HtmlWebpackPluginList  = HtmlPluginList || [];
+export const AssetsPath             =  AssetsPathList || [];
+

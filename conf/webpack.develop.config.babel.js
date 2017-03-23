@@ -17,7 +17,7 @@ import {
   DISTRICT_PATH,
 }                         from './config';
 
-import {ModuleEntry, ModuleLoaders, HtmlWebpackPluginList} from './webpack.head.config';
+import {ModuleEntry, ModuleLoaders, HtmlWebpackPluginList, AssetsPath} from './webpack.head.config';
 
 const pool = HappyPack.ThreadPool({ size: os.cpus().length })
 
@@ -90,6 +90,13 @@ if (process.env.DEVELOP) {
 
 
 /**
+ * 静态资源路径
+ */
+AssetsPath.push(
+  path.resolve(__dirname, '../', 'node_modules')
+)
+
+/**
  * webpack
  */
 export default {
@@ -102,7 +109,7 @@ export default {
 
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: [path.resolve(__dirname, '../', 'node_modules')]
+    modules: AssetsPath,
   },
 
   resolveLoader: {
