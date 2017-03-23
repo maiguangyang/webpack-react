@@ -101,16 +101,12 @@ export default {
   },
 
   resolve: {
-    modules: [
-      'node_modules',
-      'spritesmith-generated',
-    ]
+    extensions: ['.js', '.jsx'],
+    modules: [path.resolve(__dirname, '../', 'node_modules')]
   },
 
   resolveLoader: {
-    modules: [
-      'node_modules',
-    ],
+    modules: [path.resolve(__dirname, '../', 'node_modules')]
   },
 
   module: ModuleLoaders,
